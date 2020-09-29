@@ -48,12 +48,12 @@ def generate_vector_of_probabilities(lenData, lenMAX):
 
 
 ''' ЗАПИСЬ В CSW  файл: '''
-TOP = [['sequance', 'matrix']] #'w'
+TOP = [['num','sequance', 'matrix']] #'w'
 for i in list(map(lambda x: 'a%i'%x , range(1,N+1))):
     TOP[0].append(i)
 nameFile = 'data.csv'
 
-topSeq = [['N', 'sequance', 'probabilities']]
+topSeq = [['num', 'sequance', 'probabilities']]
 seqFile = 'sequance.csv'
 def write_to_csw(data, nameFile, type='a'):
     File = open(nameFile, type)
@@ -65,25 +65,24 @@ write_to_csw(TOP, nameFile, 'w')
 write_to_csw(topSeq, seqFile, 'w')
 
 #--------------- main ------------------
-def run(p, name):
-    for n in range(N):
-        data_of_new_seq=[n,name]
-        sequence = generate_sequance(data, N)
-        #print([n,' '.join(sequence)])
+def run(p, name, sequence, num, vector_of_probabilities):
 
-        vector_of_probabilities =generate_vector_of_probabilities(len(data), N)
-        write_to_csw([[n, ''.join(sequence), '-'.join(str(x) for x in vector_of_probabilities)]], seqFile)
+    data_of_new_seq=[num, name]
+    #sequence = generate_sequance(data, N)
+    #print([n,' '.join(sequence)])
+    #vector_of_probabilities =generate_vector_of_probabilities(len(data), N)
+    write_to_csw([[num, ''.join(sequence), '-'.join(str(x) for x in vector_of_probabilities)]], seqFile)
 
 
-        matrix_of_probabilities=[vector_of_probabilities]
-        for i in sequence[1:]:
-             new=[0]*len(data)
-             for j in range(len(data)):
-                #print(matrix_of_probabilities)
-                new[data.index(i)]+=matrix_of_probabilities[-1][j]*p[j][data.index(i)]
-             matrix_of_probabilities.append(new)
-             data_of_new_seq.append(sum(matrix_of_probabilities[-1]))
-        write_to_csw([data_of_new_seq], nameFile)
+    matrix_of_probabilities=[vector_of_probabilities]
+    for i in sequence[1:]:
+         new=[0]*len(data)
+         for j in range(len(data)):
+            #print(matrix_of_probabilities)
+            new[data.index(i)]+=matrix_of_probabilities[-1][j]*p[j][data.index(i)]
+         matrix_of_probabilities.append(new)
+         data_of_new_seq.append(sum(matrix_of_probabilities[-1]))
+    write_to_csw([data_of_new_seq], nameFile)
 
 
      #print(matrix_of_probabilities)
@@ -94,8 +93,11 @@ def run(p, name):
 
 m1 = [tv, tn, bl, bp]
 m2 = ['tv', 'tn', 'bl', 'bp']
-for i in range(4):
-     run(m1[i], m2[i])
+for j in range(N):
+    sequence = generate_sequance(data, N)
+    vector_of_probabilities = generate_vector_of_probabilities(len(data), N)
+    for i in range(4):
+         run(m1[i], m2[i], sequence, j, vector_of_probabilities)
 
 
 
