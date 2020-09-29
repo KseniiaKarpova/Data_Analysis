@@ -48,7 +48,7 @@ def generate_vector_of_probabilities(lenData, lenMAX):
 
 
 ''' ЗАПИСЬ В CSW  файл: '''
-TOP = [['num','sequance', 'matrix']] #'w'
+TOP = [['sequance', 'matrix']] #'w'
 for i in list(map(lambda x: 'a%i'%x , range(1,N+1))):
     TOP[0].append(i)
 nameFile = 'data.csv'
