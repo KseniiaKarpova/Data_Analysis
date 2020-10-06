@@ -1,15 +1,18 @@
+
 import numpy as np
 import pandas as pd
 import random
 import csv
-
-
+import quantecon as qe
+import numpy as np
+import pandas as pd
+# k-means проверить разделит ли на кластеры (4)
 #-------------- инициализация --------------------
 N=100
 
-data=list(map(lambda x: 's%i'%x , range(1,5)))
+data=list(range(4))
 
-
+print((data))
 tv = [[0.25, 0.25, 0.25, 0.25],
       [1/3,   1/3,  1/3,  0],
       [0.5,   0.5,   0,   0],
@@ -71,7 +74,7 @@ def run(p, name, sequence, num, vector_of_probabilities):
     #sequence = generate_sequance(data, N)
     #print([n,' '.join(sequence)])
     #vector_of_probabilities =generate_vector_of_probabilities(len(data), N)
-    write_to_csw([[num, ''.join(sequence), '-'.join(str(x) for x in vector_of_probabilities)]], seqFile)
+    write_to_csw([[num, ''.join(str(x) for x in sequence), '-'.join(str(x) for x in vector_of_probabilities)]], seqFile)
 
 
     matrix_of_probabilities=[vector_of_probabilities]
@@ -94,10 +97,12 @@ def run(p, name, sequence, num, vector_of_probabilities):
 m1 = [tv, tn, bl, bp]
 m2 = ['tv', 'tn', 'bl', 'bp']
 for j in range(N):
-    sequence = generate_sequance(data, N)
+    #sequence = generate_sequance(data, N)
     vector_of_probabilities = generate_vector_of_probabilities(len(data), N)
     for i in range(4):
-         run(m1[i], m2[i], sequence, j, vector_of_probabilities)
+        mc1 = qe.MarkovChain(m1[i])
+        sequence = mc1.simulate(N, random_state=None)
+        run(m1[i], m2[i], sequence, j, vector_of_probabilities)
 
 
 
