@@ -1,4 +1,5 @@
 
+!pip install quantecon
 import numpy as np
 import pandas as pd
 import random
@@ -8,11 +9,11 @@ import numpy as np
 import pandas as pd
 # k-means проверить разделит ли на кластеры (4)
 #-------------- инициализация --------------------
-N=100
+N=1000
 
 data=list(range(4))
 
-print((data))
+#print((data))
 tv = [[0.25, 0.25, 0.25, 0.25],
       [1/3,   1/3,  1/3,  0],
       [0.5,   0.5,   0,   0],
@@ -52,7 +53,7 @@ def generate_vector_of_probabilities(lenData, lenMAX):
 
 ''' ЗАПИСЬ В CSW  файл: '''
 TOP = [['sequance', 'matrix']] #'w'
-for i in list(map(lambda x: 'a%i'%x , range(1,N+1))):
+for i in list(map(lambda x: 'a%i'%x , range(2,N+1))):
     TOP[0].append(i)
 nameFile = 'data.csv'
 
@@ -96,16 +97,17 @@ def run(p, name, sequence, num, vector_of_probabilities):
 
 m1 = [tv, tn, bl, bp]
 m2 = ['tv', 'tn', 'bl', 'bp']
-for j in range(N):
+for j in range(100):
     #sequence = generate_sequance(data, N)
     vector_of_probabilities = generate_vector_of_probabilities(len(data), N)
     for i in range(4):
         mc1 = qe.MarkovChain(m1[i])
         sequence = mc1.simulate(N, random_state=None)
-        run(m1[i], m2[i], sequence, j, vector_of_probabilities)
+        for k in range(4):
+          run(m1[k], m2[k], sequence, j+i, vector_of_probabilities)
 
 
-
+print('done')
 
 
 #p1 = ([
