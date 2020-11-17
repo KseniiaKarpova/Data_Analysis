@@ -1,5 +1,4 @@
-
-!pip install quantecon
+#!pip install quantecon
 import numpy as np
 import pandas as pd
 import random

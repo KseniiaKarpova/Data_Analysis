@@ -57,7 +57,40 @@ plt.show()
 #centers = kmeans.cluster_centers_
 ##print(y_kmeans)
 #printer(y_kmeans)
+
+#cf_matrix = confusion_matrix(target, y_kmeans)
+#print(cf_matrix)
+#m = cf_matrix / cf_matrix.astype(np.float).sum(axis=1)
+##printer(labels)ах
+#print(m)
+#
+#df_cm = pd.DataFrame(m, index = ['tv', 'tn', 'bl', 'bp'],
+#                  columns = ['tv', 'tn', 'bl', 'bp'])
+#plt.figure(figsize = (10,7))
+#sn.heatmap(df_cm, annot=True)
+#
+#plt.show()
+
+
+
+
+
+
 #labels = KMeans(4, random_state=0).fit_predict(data)
+#
+#cf_matrix = confusion_matrix(target, labels)
+#print(cf_matrix)
+#m = cf_matrix / cf_matrix.astype(np.float).sum(axis=1)
+##printer(labels)ах
+#print(m)
+#
+#df_cm = pd.DataFrame(m, index = ['tv', 'tn', 'bl', 'bp'],
+#                  columns = ['tv', 'tn', 'bl', 'bp'])
+#plt.figure(figsize = (10,7))
+#sn.heatmap(df_cm, annot=True)
+#
+#plt.show()
+
 ##print(labels)
 #printer(labels)
 
